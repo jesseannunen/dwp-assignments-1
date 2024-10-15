@@ -12,11 +12,11 @@ function App() {
 
   ];
 
-  const [selectedProduct, setSelectedproduct] = useState(products[0]);
+  const [selectedProduct, setSelectedProduct] = useState(products[0]);
   const [quantity, setQuantity] = useState(1);
 
   const increaseQuantity = () => setQuantity(quantity + 1);
-  const decreaseQuanitity = () => {
+  const decreaseQuantity = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
@@ -25,6 +25,7 @@ function App() {
 
 
   return (
+  <div>
     <div style={{ textAlign: "center" }}>
       <h1> Welcome to the product page!</h1>
 
@@ -45,7 +46,41 @@ function App() {
         </select>
       </div>
       </div>
-      )
+
+      <div>
+        <label>Quantity: </label>
+        <button onClick={decreaseQuantity}>-</button>
+        <input
+          type="text"
+          value={quantity}
+          onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value))) }
+          style= {{ width: "40px", textAlign: "center"}}
+          />
+          <button onClick={increaseQuantity}>+</button>
+      </div>
+
+      <h4>Order info</h4>
+
+      <table border="1" style={{ margin: "0 auto"}}>
+        <thead>
+          <tr>
+            <th>Products</th>
+            <th>Quantity</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{selectedProduct.name}</td>
+            <td>{quantity}</td>
+            <td>{total}€</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      </div>  
+      );
 }
 
       export default App
