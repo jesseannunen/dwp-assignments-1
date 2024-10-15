@@ -4,32 +4,48 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const products = [
+    { name: "AMD Ryzen 5 3600", price: 245 },
+    { name: "AMD Ryzen 7 5800 X3D", price: 319 },
+    { name: "Intel i9-14900K ", price: 500 },
+
+  ];
+
+  const [selectedProduct, setSelectedproduct] = useState(products[0]);
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => setQuantity(quantity + 1);
+  const decreaseQuanitity = () => {
+    if (quantity > 1) setQuantity(quantity - 1);
+  };
+
+  const total = selectedProduct.price * quantity;
+
+
 
   return (
-    <>
+    <div style={{ textAlign: "center" }}>
+      <h1> Welcome to the product page!</h1>
+
+      <h3>Select product</h3>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <label>Product: </label>
+        <select
+          value={selectedProduct.name}
+          onChange={(e) =>
+            setSelectedProduct(products.find((p) => p.name === e.target.value))
+          }
+        >
+          {products.map((product, index) => (
+            <option key={index} value={product.name}>
+              {product.name} ({product.price}€)
+            </option>
+          ))}
+        </select>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      )
 }
 
-export default App
+      export default App
